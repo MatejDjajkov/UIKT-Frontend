@@ -31,7 +31,7 @@ const SubjectService = {
 
     deleteSubject: (id) => {
      return axios.get(`/subject/delete/${id}`)
-    }
+    },
 
 }
 

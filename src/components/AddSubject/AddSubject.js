@@ -2,7 +2,7 @@ import {Card, CardBody} from "reactstrap";
 import './AddSubject.css'
 import React, {useEffect} from "react";
 import YearService from "../../repository/YearRepository";
-import SemesterTypeService from "../../repository/SemesterType";
+import SemesterTypeService from "../../repository/SemesterTypeRepository";
 import SubjectService from "../../repository/SubjectRepository";
 import {FadeLoader} from "react-spinners";
 import Swal from "sweetalert2";

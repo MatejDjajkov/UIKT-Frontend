@@ -76,6 +76,17 @@
     margin-top: 15px;
 }
 
+.dropdown_wrapper{
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dropdown_item > button{
+    background-color: #2a439a !important;
+    border-color: transparent;
+}
+
 @media (min-width: 768px) {
     #main_page_pagination_div {
         display: flex;
