@@ -10,6 +10,7 @@ import Subject from "./components/Subject/Subject";
 import Register from "./components/Register/Register";
 import AddSubject from "./components/AddSubject/AddSubject";
 import EditSubject from "./components/EditSubject/EditSubject";
+import PendingSubjects from "./components/PendingSubjects/PendingSubjects";
 
 class App extends Component {
 
@@ -58,6 +59,7 @@ class App extends Component {
                     <Route path='/subject/:id' element={<Subject/>}/>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/register' element={<Register/>}/>
+                    <Route path='/pending' element={<PendingSubjects/>}/>
                     <Route path='/add/subject' element={<AddSubject/>}/>
                     <Route path='/subject/:id/edit' element={<EditSubject/>}/>
 

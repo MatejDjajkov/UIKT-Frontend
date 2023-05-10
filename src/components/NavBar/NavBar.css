@@ -39,7 +39,7 @@
     color: white;
 }
 
-.dropdown-menu {
+.nav-item > .dropdown-toggle > .dropdown-menu {
     left: -100px !important;
 }
 

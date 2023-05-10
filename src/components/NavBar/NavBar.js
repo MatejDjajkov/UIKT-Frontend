@@ -4,7 +4,7 @@ import {Container, Nav, NavDropdown} from "react-bootstrap";
 import React, {useEffect} from "react";
 import {FaSearch} from 'react-icons/fa';
 import YearService from "../../repository/YearRepository";
-import SemesterTypeService from "../../repository/SemesterType";
+import SemesterTypeService from "../../repository/SemesterTypeRepository";
 import UserService from "../../repository/UserRepository";
 
 
@@ -94,7 +94,12 @@ const NavBar = () => {
                             <NavDropdown.Item href="/subjects?page=1">Сите предмети</NavDropdown.Item>
                         </NavDropdown>
                         {localStorage.getItem("role") ?
-                            <Nav.Link href="/subjects?type=favorites">Мои предмети</Nav.Link> : null}
+                            <Nav.Link href="/subjects?type=favorites">Мои предмети</Nav.Link>
+                            : null}
+
+                        {localStorage.getItem("role") ?
+                            <Nav.Link href="/pending">Датотеки на чекање</Nav.Link>
+                            : null}
                     </Nav>
                     <div className="d-flex">
                         <input

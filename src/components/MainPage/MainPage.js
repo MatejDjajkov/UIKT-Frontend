@@ -10,8 +10,9 @@ import {FadeLoader} from "react-spinners";
 import Pagination from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
 import YearService from "../../repository/YearRepository";
-import SemesterTypeService from "../../repository/SemesterType";
+import SemesterTypeService from "../../repository/SemesterTypeRepository";
 import UserService from "../../repository/UserRepository";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const MainPage = () => {
 
@@ -32,7 +33,6 @@ const MainPage = () => {
     const yearQuery = new URLSearchParams(queryParams).get('year')
     const typeQuery = new URLSearchParams(queryParams).get('type')
     const searchQuery = new URLSearchParams(queryParams).get('search')
-
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -83,7 +83,7 @@ const MainPage = () => {
 
     const filterByYearAndSemester = (y, type) => {
         SubjectService.getAllSubjectsByYearAndSemester(y, type).then(r => {
-            setSubjects(r.data)
+            setSubjects(r.data);
         }).then(() => {
             setLoading(false)
         })
@@ -130,6 +130,8 @@ const MainPage = () => {
     const getYear = (id) => {
         YearService.getYear(id).then(r => {
             setYear(r.data.name.toLowerCase())
+            console.log(r.data.name.toLowerCase())
+
         })
     }
 
@@ -187,6 +189,33 @@ const MainPage = () => {
                                     {search !== "" ? <h5 id="search_message">-пребарување по "{search}"</h5> : null}
                                 </div>
                             }
+                        <div className="dropdown_wrapper">
+                            <Dropdown className="dropdown_item">
+                                <Dropdown.Toggle id="dropdown-basic">
+                                    Избери смер
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu>
+                                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+
+
+                            <Dropdown className="dropdown_item">
+                                <Dropdown.Toggle id="dropdown-basic">
+                                    Избери професор
+                                </Dropdown.Toggle>
+
+                                <Dropdown.Menu>
+                                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </div>
+
 
                             {subjects.length === 0 ?
                                 areFavorites === true ?
@@ -232,7 +261,7 @@ const MainPage = () => {
                                                 onChange={handleChangePage}
                                                 renderItem={(item) => (
                                                     <PaginationItem
-                                                        getAllData                 component={Link}
+                                                        component={Link}
                                                         to={`/subjects?page=${item.page}`}
                                                         {...item}
                                                     />

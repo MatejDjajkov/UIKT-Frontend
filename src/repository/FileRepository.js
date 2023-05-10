@@ -1,6 +1,5 @@
 import axios from "../custom-axios/axios";
 
-
 const FileService = {
 
     uploadFile: (id, files) => {
@@ -29,6 +28,9 @@ const FileService = {
             }
         )
     },
+    getPendingFiles: (id) => {
+        return axios.get(`/file/pending`)
+    }
 
 }
 

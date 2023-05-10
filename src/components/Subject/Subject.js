@@ -9,14 +9,12 @@ import FileService from "../../repository/FileRepository";
 import {FadeLoader} from "react-spinners";
 import {HiDownload} from "react-icons/hi";
 import FileSaver from 'file-saver';
-import {FiEdit} from "react-icons/fi";
 import {useNavigate} from "react-router";
 
 
 const Subject = () => {
 
     const id = parseInt(useParams().id)
-    const navigate = useNavigate()
     const role = localStorage.getItem("role")
     const [subject, setSubject] = React.useState()
     const [files1, setFiles1] = React.useState([])
@@ -51,9 +49,9 @@ const Subject = () => {
         let arr3 = []
         FileService.findFiles(id).then((res) => {
             res.data.forEach(r => {
-                if (r.examType.id === 1) {
+                if (r.examType === "Прв") {
                     arr1.push(r)
-                } else if (r.examType.id === 2) {
+                } else if (r.examType === "Втор") {
                     arr2.push(r)
                 } else {
                     arr3.push(r)
@@ -218,10 +216,6 @@ const Subject = () => {
     }
     const openFile = async (id) => {
         window.location.href = 'http://localhost:8080/file/openFile/' + id
-        // await FileService.openFile(id).then((response) => {
-        //     var blob = new Blob([response.data], {type: response.data.type});
-        // FileSaver.open(response);
-        // })
     }
 
     const deleteSubject = () => {

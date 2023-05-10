@@ -7,8 +7,8 @@ const SemesterTypeService = {
         return axios.get(`/semester/type/all`)
     },
 
-    getSemesterType: (id) => {
-        return axios.get(`/semester/type/${id}`)
+    getSemesterType: (index) => {
+        return axios.get(`/semester/type/${index}`)
     },
 
 }
