@@ -61,7 +61,6 @@ class App extends Component {
                     <Route path='/register' element={<Register/>}/>
                     <Route path='/pending' element={<PendingSubjects/>}/>
                     <Route path='/add/subject' element={<AddSubject/>}/>
-                    <Route path='/subject/:id/edit' element={<EditSubject/>}/>
 
                     <Route path="*" element={<Navigate to="/subjects?page=1"/>}/>
                 </Routes>

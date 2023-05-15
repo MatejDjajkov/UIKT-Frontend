@@ -25,10 +25,6 @@ const SubjectService = {
         return axios.post(`/subject/add`, form)
     },
 
-    editSubject: (form) => {
-        return axios.post(`/subject/edit`, form)
-    },
-
     deleteSubject: (id) => {
      return axios.get(`/subject/delete/${id}`)
     },

@@ -256,8 +256,6 @@ const Subject = () => {
                         <h1 id="subject_title">{subject.name}</h1>
                         {role === "ROLE_ADMIN" ?
                             <div id="subject_edit_delete_btns">
-                                <Link className="btn btn-success" id="subject_edit" to={`/subject/${subject.id}/edit`}
-                                      state={{subject: subject}}>Измени</Link>
                                 <button className="btn btn-danger" onClick={deleteSubject}>Избриши
                                 </button>
                             </div>
