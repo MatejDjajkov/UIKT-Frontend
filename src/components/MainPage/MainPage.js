@@ -12,6 +12,8 @@ import PaginationItem from '@mui/material/PaginationItem';
 import YearService from "../../repository/YearRepository";
 import SemesterTypeService from "../../repository/SemesterTypeRepository";
 import UserService from "../../repository/UserRepository";
+import ModuleService from "../../repository/ModuleRepository"
+import ProfessorService from "../../repository/ProfessorRepository";
 import Dropdown from 'react-bootstrap/Dropdown';
 
 const MainPage = () => {
@@ -19,6 +21,8 @@ const MainPage = () => {
     const [subjects, setSubjects] = React.useState([])
     const [year, setYear] = React.useState(undefined)
     const [type, setType] = React.useState(undefined)
+    const [module, setModule] = React.useState(undefined)
+    const [professor, setProfessor] = React.useState(undefined)
     const [search, setSearch] = React.useState("")
     const [areFavorites, setAreFavorites] = React.useState(false)
     const [loading, setLoading] = React.useState(true)
@@ -28,6 +32,9 @@ const MainPage = () => {
     const [totalPages, setTotalPages] = React.useState(0)
     const [sizeOnPage, setSizeOnPage] = React.useState(30)
     const [totalSubjects, setTotalSubjects] = React.useState(0)
+
+    const [allModules, setAllModules] = React.useState([])
+    const [allProfessors, setAllProfessors] = React.useState([])
 
     const queryParams = decodeURI(useLocation().search)
     const yearQuery = new URLSearchParams(queryParams).get('year')
@@ -82,8 +89,9 @@ const MainPage = () => {
     }
 
     const filterByYearAndSemester = (y, type) => {
-        SubjectService.getAllSubjectsByYearAndSemester(y, type).then(r => {
+        SubjectService.getFilteredSubjects(type,y,module?module.id:undefined,professor?professor.id:undefined).then(r => {
             setSubjects(r.data);
+            getFavoriteSubjects()
         }).then(() => {
             setLoading(false)
         })
@@ -92,6 +100,7 @@ const MainPage = () => {
     const searchFilter = (val) => {
         SubjectService.getAllSubjectsWithSearch(val).then(r => {
             setSubjects(r.data)
+            getFavoriteSubjects()
         }).then(() => {
             setLoading(false)
         })
@@ -116,6 +125,26 @@ const MainPage = () => {
             setTotalPages(Math.ceil(r.data / sizeOnPage))
             setLoading2(false)
         })
+    }
+
+    const getAllModules = () => {
+        setLoading(true)
+        ModuleService.getAllModules().then(r =>{
+            setAllModules(r.data)
+        }).then(()=>{
+            setLoading(false)
+        })
+
+    }
+
+    const getAllProfessors = () => {
+        setLoading(true)
+        ProfessorService.getAllProfessors().then(r => {
+            setAllProfessors(r.data)
+        }).then(()=>{
+            setLoading(false)
+        })
+
     }
 
     const getPaginatedSubjects = (p, s) => {
@@ -156,10 +185,38 @@ const MainPage = () => {
         }
     }
 
+    const handleModuleSelect = (selectedModule) => {
+        setLoading(true)
+        var mod=allModules.filter(x=>x.id==selectedModule)[0]
+        setModule(mod)
+        console.log(mod)
+        SubjectService.getFilteredSubjects(typeQuery,yearQuery,selectedModule,professor? professor.id : undefined).then(r => {
+            setSubjects(r.data)
+            getFavoriteSubjects()
+        }).then(() => {
+            setLoading(false)
+        })
+    };
+
+    const handleProfessorSelect = (selectedProfessor) => {
+        setLoading(true)
+        var prof=allProfessors.filter(x=>x.id==selectedProfessor)[0]
+        setProfessor(prof)
+        console.log(prof)
+        SubjectService.getFilteredSubjects(typeQuery,yearQuery,module? module.id: undefined,selectedProfessor).then(r => {
+            setSubjects(r.data)
+            getFavoriteSubjects()
+        }).then(() => {
+            setLoading(false)
+        })
+    };
+
     useEffect(() => {
         getQueryParam()
         getTotalSubjects()
         getFavoriteSubjects()
+        getAllModules()
+        getAllProfessors()
     }, [])
 
     return (
@@ -190,28 +247,30 @@ const MainPage = () => {
                                 </div>
                             }
                         <div className="dropdown_wrapper">
-                            <Dropdown className="dropdown_item">
+                            <Dropdown className="dropdown_item me-2" onSelect={handleModuleSelect}>
                                 <Dropdown.Toggle id="dropdown-basic">
-                                    Избери смер
+                                    {module ? module.name : '-Избери смер-'}
                                 </Dropdown.Toggle>
-
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                                    <Dropdown.Item key={undefined} eventKey={undefined}>-Избери смер-</Dropdown.Item>
+                                    {allModules.map((module) => {
+                                        return(
+                                        <Dropdown.Item key={module.id} eventKey={module.id}>{module.name}</Dropdown.Item>
+                                        )})}
                                 </Dropdown.Menu>
                             </Dropdown>
 
-
-                            <Dropdown className="dropdown_item">
+                            <Dropdown className="dropdown_item" onSelect={handleProfessorSelect}>
                                 <Dropdown.Toggle id="dropdown-basic">
-                                    Избери професор
+                                    {professor ? professor.name : '-Избери професор-'}
                                 </Dropdown.Toggle>
-
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                                    <Dropdown.Item key={undefined} eventKey={undefined}>-Избери професор-</Dropdown.Item>
+
+                                    {allProfessors.map((p) => {
+                                        return(
+                                            <Dropdown.Item key={p.id} eventKey={p.id}>{p.name}</Dropdown.Item>
+                                        )})}
                                 </Dropdown.Menu>
                             </Dropdown>
                         </div>

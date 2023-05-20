@@ -28,7 +28,9 @@ const SubjectService = {
     deleteSubject: (id) => {
      return axios.get(`/subject/delete/${id}`)
     },
-
+    getFilteredSubjects:(semesterTypeId, yearId, moduleId, professorId) =>{
+        return axios.get('/subject/filter', {params:{semesterTypeId:semesterTypeId, yearId:yearId, moduleId:moduleId, professorId:professorId}})
+    }
 }
 
 export default SubjectService

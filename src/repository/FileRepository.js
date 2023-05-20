@@ -30,7 +30,7 @@ const FileService = {
     },
     getPendingFiles: (id) => {
         return axios.get(`/file/pending`)
-    }
+    },
 
 }
 

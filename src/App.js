@@ -9,7 +9,6 @@ import Login from "./components/Login/Login";
 import Subject from "./components/Subject/Subject";
 import Register from "./components/Register/Register";
 import AddSubject from "./components/AddSubject/AddSubject";
-import EditSubject from "./components/EditSubject/EditSubject";
 import PendingSubjects from "./components/PendingSubjects/PendingSubjects";
 
 class App extends Component {
