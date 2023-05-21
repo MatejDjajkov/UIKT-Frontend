@@ -97,9 +97,7 @@ const NavBar = () => {
                             <Nav.Link href="/subjects?type=favorites">Мои предмети</Nav.Link>
                             : null}
 
-                        {localStorage.getItem("role") ?
-                            <Nav.Link href="/pending">Датотеки на чекање</Nav.Link>
-                            : null}
+                        {localStorage.getItem("role") && localStorage.getItem("role")=="ROLE_ADMIN" && <Nav.Link href="/pending">Датотеки на чекање</Nav.Link>}
                     </Nav>
                     <div className="d-flex">
                         <input
