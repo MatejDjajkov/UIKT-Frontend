@@ -18,6 +18,14 @@ const FileService = {
         return axios.get(`/file/get/${id}`)
     },
 
+    approveFile:(id)=>{
+        return axios.get(/file/approve/${id})
+    },
+
+    declineFile:(id)=>{
+        return axios.get(/file/decline/${id})
+    }
+
     downloadFile: (id) => {
         return axios.get(`/file/downloadFile/${id}`,
             {
