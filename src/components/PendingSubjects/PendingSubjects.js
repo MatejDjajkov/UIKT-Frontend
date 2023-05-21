@@ -17,12 +17,16 @@ const PendingSubjects = () => {
         })
     }
 
-    const deleteFile = (id) => {
-
+    const approveFile = (id) => {
+        FileService.approveFile(id).then(r=>{
+            fetchAllPendingSubjects()
+        })
     }
 
-    const approveFile = (id) => {
-
+    const declineFile = (id) => {
+        FileService.declineFile(id).then(r=>{
+            fetchAllPendingSubjects()
+        })
     }
 
     useEffect(() => {
@@ -49,7 +53,7 @@ const PendingSubjects = () => {
                                         <li key={f.id} className="list-group-item">
                                                 <BsTrash className="subject_delete_download_icons" color="red"
                                                          cursor="pointer"
-                                                         id={f.id} name={f.name} onClick={()=>deleteFile(f.id)}/>
+                                                         id={f.id} name={f.name} onClick={()=>declineFile(f.id)}/>
                                             <RiCheckboxCircleFill className="subject_delete_download_icons"
                                                         onClick={() => approveFile(f.id)}>
                                             </RiCheckboxCircleFill>
