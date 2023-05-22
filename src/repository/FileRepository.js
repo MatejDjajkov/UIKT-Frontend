@@ -23,6 +23,13 @@ const FileService = {
         return axios.get(`/file/get/${id}`); // Making an HTTP GET request to '/file/get/{id}' endpoint
     },
 
+    approveFile:(id)=>{
+        return axios.get(/file/approve/${id})
+    },
+
+    declineFile:(id)=>{
+        return axios.get(/file/decline/${id})
+    },
     // Method to download a file
     downloadFile: (id) => {
         return axios.get(`/file/downloadFile/${id}`, {
