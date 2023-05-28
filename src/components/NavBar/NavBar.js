@@ -6,7 +6,7 @@ import {FaSearch} from 'react-icons/fa';
 import YearService from "../../repository/YearRepository";
 import SemesterTypeService from "../../repository/SemesterTypeRepository";
 import UserService from "../../repository/UserRepository";
-
+import logo from "../../assets/Logo.png"
 
 
 const NavBar = () => {
@@ -65,7 +65,7 @@ const NavBar = () => {
     return (
         <Navbar id="nav_bar" variant="dark" expand="md" className="mb-4">
             <Container>
-                <Navbar.Brand href="/subjects?page=1">Предметник</Navbar.Brand>
+                <Navbar.Brand href="/subjects?page=1" className="p-0"><img src={logo} style={{ height: '50px', margin: '0', padding:'0'}}/></Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll"/>
                 <Navbar.Collapse>
                     <Nav

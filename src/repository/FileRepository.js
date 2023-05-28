@@ -24,11 +24,11 @@ const FileService = {
     },
 
     approveFile:(id)=>{
-        return axios.get(/file/approve/${id})
+        return axios.get(`/file/approve/${id}`)
     },
 
     declineFile:(id)=>{
-        return axios.get(/file/decline/${id})
+        return axios.get(`/file/decline/${id}`)
     },
     // Method to download a file
     downloadFile: (id) => {
